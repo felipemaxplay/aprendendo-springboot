@@ -1,6 +1,12 @@
 package br.com.felipemaxplay.pringbootjpa.model.entity;
 
+import org.springframework.lang.NonNull;
+
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import java.util.Objects;
 
 @Entity
 @Table(name = "PRODUTO")
@@ -11,22 +17,26 @@ public class Produto {
     private int id;
 
     @Column(name = "NOME")
+    @NotBlank
     private String nome;
 
     @Column(name = "PRECO")
+    @Min(value = 0)
     private double preco;
 
     @Column(name = "DESCONTO")
+    @Min(value = 0)
+    @Max(value = 1)
     private double desconto;
 
     @Deprecated
     public Produto() {
     }
 
-    public Produto(String nome, double preco, double desconto) {
-        this.nome = nome;
-        this.preco = preco;
-        this.desconto = desconto;
+    public Produto(@NonNull String nome, double preco, double desconto) {
+        this.nome = Objects.requireNonNull(nome);
+        this.preco = Objects.requireNonNull(preco);
+        this.desconto = Objects.requireNonNull(desconto);
     }
 
     public int getId() {

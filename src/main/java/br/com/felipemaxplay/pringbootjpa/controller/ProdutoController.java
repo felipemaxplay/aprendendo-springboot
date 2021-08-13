@@ -5,6 +5,8 @@ import br.com.felipemaxplay.pringbootjpa.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping(path = "/api/produtos")
 public class ProdutoController {
@@ -16,9 +18,14 @@ public class ProdutoController {
     }
 
     @PostMapping
-    public @ResponseBody Produto saveProduto(Produto produto) {
+    public @ResponseBody Produto saveProduto(@Valid Produto produto) {
         produtoRepository.save(produto);
         return produto;
+    }
+
+    @GetMapping
+    public @ResponseBody Iterable<Produto> findAllProduto() {
+        return produtoRepository.findAll();
     }
 
 }
