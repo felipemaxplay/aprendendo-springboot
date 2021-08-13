@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path = "/produtos")
+@RequestMapping(path = "/api/produtos")
 public class ProdutoController {
 
     private final ProdutoRepository produtoRepository;
@@ -16,8 +16,7 @@ public class ProdutoController {
     }
 
     @PostMapping
-    public @ResponseBody Produto saveProduto(@RequestParam(name = "nome") String nome) {
-        Produto produto = new Produto(nome);
+    public @ResponseBody Produto saveProduto(Produto produto) {
         produtoRepository.save(produto);
         return produto;
     }
