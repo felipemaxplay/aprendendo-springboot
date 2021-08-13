@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/api/produtos")
@@ -26,9 +27,13 @@ public class ProdutoController implements ProdutoControllerInt {
     }
 
     @GetMapping
-    @ResponseStatus(HttpStatus.OK)
     public @ResponseBody Iterable<Produto> findAllProduto() {
         return produtoRepository.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public Optional<Produto> findByIdProduto(@PathVariable("id") int id){
+        return produtoRepository.findById(id);
     }
 
 }
