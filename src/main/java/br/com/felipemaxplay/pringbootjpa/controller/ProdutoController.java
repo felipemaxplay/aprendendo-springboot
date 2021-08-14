@@ -36,4 +36,15 @@ public class ProdutoController implements ProdutoControllerInt {
         return produtoRepository.findById(id);
     }
 
+    @PutMapping
+    public Produto updateProduto(@Valid Produto produto) {
+        produtoRepository.save(produto);
+        return produto;
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteByIdProduto(@PathVariable("id") int id) {
+        produtoRepository.deleteById(id);
+    }
 }
