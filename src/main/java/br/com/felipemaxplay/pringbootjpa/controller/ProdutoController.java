@@ -3,6 +3,8 @@ package br.com.felipemaxplay.pringbootjpa.controller;
 import br.com.felipemaxplay.pringbootjpa.model.entity.Produto;
 import br.com.felipemaxplay.pringbootjpa.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,8 +33,14 @@ public class ProdutoController implements ProdutoControllerInt {
         return produtoRepository.findAll();
     }
 
+    @GetMapping("/paginas/{numPage}")
+    public @ResponseBody Iterable<Produto> findPageProduto(@PathVariable("numPage") int numPage) {
+        Pageable pageable = PageRequest.of(numPage, 3);
+        return produtoRepository.findAll(pageable);
+    }
+
     @GetMapping("/{id}")
-    public Optional<Produto> findByIdProduto(@PathVariable("id") int id){
+    public @ResponseBody Optional<Produto> findByIdProduto(@PathVariable("id") int id){
         return produtoRepository.findById(id);
     }
 

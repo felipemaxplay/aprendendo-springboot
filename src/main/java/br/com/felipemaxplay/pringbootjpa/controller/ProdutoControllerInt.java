@@ -16,6 +16,9 @@ public interface ProdutoControllerInt {
     @GetMapping
     Iterable<Produto> findAllProduto();
 
+    @GetMapping("/pagina/{numPage}")
+    Iterable<Produto> findPageProduto(@PathVariable("numPage") int numPage);
+
     @GetMapping("/{id}")
     Optional<Produto> findByIdProduto(@PathVariable("id") int id);
 
