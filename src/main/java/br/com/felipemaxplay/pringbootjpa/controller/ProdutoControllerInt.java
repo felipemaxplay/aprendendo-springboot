@@ -11,21 +11,27 @@ public interface ProdutoControllerInt {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    Produto saveProduto(@Valid Produto produto);
+    public Produto saveProduto(@Valid Produto produto);
 
     @GetMapping
-    Iterable<Produto> findAllProduto();
+    public Iterable<Produto> findAllProduto();
 
-    @GetMapping("/pagina/{numPage}")
-    Iterable<Produto> findPageProduto(@PathVariable("numPage") int numPage);
+    @GetMapping(path = "/{firstLetra}")
+    public @ResponseBody Iterable<Produto> findByFirstLetra(@PathVariable("firstLetra") String firstLetra);
+
+    @GetMapping(path = "/{parteNome}")
+    public @ResponseBody Iterable<Produto> findByNome(@PathVariable("parteNome") String parteNome);
+
+    @GetMapping("/paginas/{numPage}")
+    public Iterable<Produto> findPageProduto(@PathVariable("numPage") int numPage);
 
     @GetMapping("/{id}")
-    Optional<Produto> findByIdProduto(@PathVariable("id") int id);
+    public Optional<Produto> findByIdProduto(@PathVariable("id") int id);
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void deleteByIdProduto(@PathVariable("id") int id);
+    public void deleteByIdProduto(@PathVariable("id") int id);
 
     @PutMapping
-    Produto updateProduto(@Valid Produto produto);
+    public Produto updateProduto(@Valid Produto produto);
 }

@@ -28,10 +28,21 @@ public class ProdutoController implements ProdutoControllerInt {
         return produto;
     }
 
+    @GetMapping(path = "/letra/{firstLetra}")
+    public @ResponseBody Iterable<Produto> findByFirstLetra(@PathVariable("firstLetra") String firstLetra) {
+        return  produtoRepository.findByNomeStartingWith(firstLetra);
+    }
+
     @GetMapping
     public @ResponseBody Iterable<Produto> findAllProduto() {
         return produtoRepository.findAll();
     }
+
+    @GetMapping(path = "/nome/{parteNome}")
+    public @ResponseBody Iterable<Produto> findByNome(@PathVariable("parteNome") String parteNome) {
+        return produtoRepository.findByNomeContainingIgnoreCase(parteNome);
+    }
+
 
     @GetMapping("/paginas/{numPage}")
     public @ResponseBody Iterable<Produto> findPageProduto(@PathVariable("numPage") int numPage) {
